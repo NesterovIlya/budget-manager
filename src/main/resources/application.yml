@@ -4,4 +4,11 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: false
+  liquibase:
+    change-log: classpath:/db/changelog/master.xml
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
 

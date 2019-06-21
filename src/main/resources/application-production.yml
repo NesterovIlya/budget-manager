@@ -2,3 +2,7 @@ server:
   servlet:
     context-path: /budget-manager
   port: 8080
+
+spring:
+  liquibase:
+    contexts: production

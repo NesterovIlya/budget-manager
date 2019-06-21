@@ -37,8 +37,13 @@ dependencies {
     implementation('org.projectlombok:lombok:1.18.4')
     implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.3')
     implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.3')
-    
+    implementation('org.liquibase:liquibase-core:3.6.3')
+    implementation('org.joda:joda-money:1.0.1')
+    implementation('org.jadira.usertype:usertype.core:6.0.1.GA')
+
+
     implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'com.jayway.jsonpath', module: 'json-path'
@@ -47,6 +52,8 @@ dependencies {
     testRuntime("org.apache.tomcat:tomcat-dbcp:${property('tomcat.version')}")
 
     testRuntime('com.h2database:h2')
+
+    runtime('org.postgresql:postgresql')
 }
 
 task classpathJar(type: Jar) {

@@ -2,3 +2,20 @@ server:
   servlet:
     context-path: /budget-manager
   port: 8080
+
+spring:
+  liquibase:
+    contexts: development
+  datasource:
+    hikari:
+      jdbc-url: jdbc:postgresql://localhost:5432/budget-manager
+      username: postgres
+      password: 123456
+  jpa:
+    properties:
+      show-sql: true
+      hibernate:
+        format_sql: true
+        generate_statistics: true
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
+
