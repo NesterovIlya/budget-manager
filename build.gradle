@@ -1,0 +1,84 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.1.2.RELEASE' apply false
+}
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+idea {
+    project {
+        jdkName = '1.8'
+        languageLevel = '1.8'
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = 'com.github.nesterovilya'
+version = '0.1-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+ext['tomcat.version'] = '9.0.14'
+
+dependencies {
+    implementation('org.projectlombok:lombok:1.18.4')
+    implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.3')
+    implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.3')
+    
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'com.jayway.jsonpath', module: 'json-path'
+    }
+    testRuntime("org.apache.tomcat:tomcat-jdbc:${property('tomcat.version')}")
+    testRuntime("org.apache.tomcat:tomcat-dbcp:${property('tomcat.version')}")
+
+    testRuntime('com.h2database:h2')
+}
+
+task classpathJar(type: Jar) {
+    inputs.files sourceSets.main.runtimeClasspath
+
+    archiveName = "runboot-classpath.jar"
+    doFirst {
+        // If run in configuration phase, some artifacts may not exist yet (after clean)
+        // and File.toURI can’t figure out what is directory to add the critical trailing slash.
+        manifest {
+            def classpath = sourceSets.main.runtimeClasspath.files
+            attributes "Class-Path": classpath.collect {f -> f.toURI().toString()}.join(" ")
+        }
+    }
+}
+
+bootJar {
+    manifest {
+        attributes 'Main-Class': 'org.springframework.boot.loader.PropertiesLauncher'
+        attributes 'Start-Class': 'com.github.nesterovilya.budgetmanager.BudgetManagerApplication'
+    }
+    archiveName "budget-manager-${project.version}.jar"
+}
+
+springBoot {
+    mainClassName = 'com.github.nesterovilya.budgetmanager.BudgetManagerApplication'
+}
+
+bootRun {
+    systemProperties = System.properties
+
+    classpath = classpathJar.outputs.files
+
+    jvmArgs "-Xmx1024m"
+}
