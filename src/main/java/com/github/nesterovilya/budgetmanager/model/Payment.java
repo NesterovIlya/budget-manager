@@ -11,6 +11,7 @@ import org.joda.money.Money;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 /**
  * @author Ilya Nesterov
@@ -25,7 +26,7 @@ public class Payment extends AbstractEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    private String correlationId;
+    private UUID correlationId;
 
     private String productTitle;
 

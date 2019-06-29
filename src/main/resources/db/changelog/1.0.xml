@@ -8,6 +8,81 @@
         <dbms type="${dbms}"/>
     </preConditions>
 
+    <changeSet author="i.nesterov" id="create_table_payment">
+        <createTable tableName="payment" schemaName="${schema}">
+            <column name="id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="correlation_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_title" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_date" type="timestamp(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_type" type="varchar(9)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency" type="char(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="decimal(12,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="id" constraintName="pk_payment" tableName="payment" schemaName="${schema}"/>
+    </changeSet>
+
+    <changeSet author="i.nesterov" id="create_table_category">
+        <createTable tableName="category" schemaName="${schema}">
+            <column name="id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="uuid"/>
+            <column name="title" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(2000)"/>
+        </createTable>
+        <addPrimaryKey columnNames="id" constraintName="pk_category" tableName="category" schemaName="${schema}"/>
+    </changeSet>
+
+
+    <changeSet author="i.nesterov" id="add_constraint_fk_payment_category_id">
+        <addForeignKeyConstraint baseColumnNames="category_id"
+                                 baseTableName="payment"
+                                 baseTableSchemaName="${schema}"
+                                 constraintName="fk_payment_category_id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"
+                                 referencedTableSchemaName="${schema}"/>
+    </changeSet>
+
+    <changeSet author="i.nesterov" id="add_constraint_fk_category_parent_id">
+        <addForeignKeyConstraint baseColumnNames="parent_id"
+                                 baseTableName="category"
+                                 baseTableSchemaName="${schema}"
+                                 constraintName="fk_category_parent_id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"
+                                 referencedTableSchemaName="${schema}"/>
+    </changeSet>
+
+
+
 
 
 </databaseChangeLog>

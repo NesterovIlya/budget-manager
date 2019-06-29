@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.1.2.RELEASE' apply false
+    id 'org.springframework.boot' version '2.1.6.RELEASE' apply false
 }
 
 apply plugin: 'idea'
@@ -48,6 +48,8 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'com.jayway.jsonpath', module: 'json-path'
     }
+    testCompile("org.dbunit:dbunit:2.6.0")
+    testCompile("com.github.database-rider:rider-core:1.7.2")
     testRuntime("org.apache.tomcat:tomcat-jdbc:${property('tomcat.version')}")
     testRuntime("org.apache.tomcat:tomcat-dbcp:${property('tomcat.version')}")
 

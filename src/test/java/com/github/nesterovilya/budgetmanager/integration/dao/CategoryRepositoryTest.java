@@ -21,7 +21,7 @@ public class CategoryRepositoryTest extends AbstractRepositoryTest {
     private CategoryRepository categoryRepository;
 
     @Test
-    public void testGetCategories() {
+    public void test_getCategories() {
         List<Category> foundCategories = categoryRepository.findAll();
 
         assertThat(foundCategories, not(emptyCollectionOf(Category.class)));
