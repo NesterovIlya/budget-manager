@@ -24,7 +24,7 @@ public class DaoTestConfig {
         ObjectMapper objectMapper = new ObjectMapper(yamlFactory);
         //objectMapper.setPropertyNamingStrategy(new CustomNamingStrategy());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         objectMapper.setDateFormat(sdf);
         return objectMapper;

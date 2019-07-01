@@ -13,10 +13,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Commit;
 
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -60,7 +59,9 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
         assertThat(foundPayment.getCategory().getId(), is(UUID.fromString("03a776ca-bfda-47c9-9e9c-99b0ad34152d")));
         assertThat(foundPayment.getCorrelationId(), is(UUID.fromString("facfbb72-9f7b-4847-abf8-d045f7ec34e8")));
         assertThat(foundPayment.getProductTitle(), is("Milk"));
-        assertThat(foundPayment.getPaymentDate(), is(ZonedDateTime.parse("2018-05-01T16:44:00.000+00:00")));
+        /*assertThat(foundPayment.getPaymentDate(), is(ZonedDateTime.parse("2018-05-01T19:44:00.000+03:00")));*/
+        assertThat(foundPayment.getPaymentDate().withZoneSameInstant(ZoneOffset.UTC),
+                is(ZonedDateTime.parse("2018-05-01T19:44:00.000+03:00").withZoneSameInstant(ZoneOffset.UTC)));
         assertThat(foundPayment.getPaymentType(), is(PaymentType.OUTCOMING));
         assertThat(foundPayment.getAmount(), is(Money.of(CurrencyUnit.EUR, 1.20)));
     }

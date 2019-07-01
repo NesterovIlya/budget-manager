@@ -3,7 +3,7 @@ payment:
     category_id: "03a776ca-bfda-47c9-9e9c-99b0ad34152d"
     correlation_id: "facfbb72-9f7b-4847-abf8-d045f7ec34e8"
     product_title: "Milk"
-    payment_date: 2018-05-01T16:44:00.000Z
+    payment_date: 2018-05-01T16:44:00.000
     payment_type: "OUTCOMING"
     currency: "EUR"
     amount: 1.20
@@ -11,7 +11,7 @@ payment:
     category_id: "03a776ca-bfda-47c9-9e9c-99b0ad34152d"
     correlation_id: "facfbb72-9f7b-4847-abf8-d045f7ec34e8"
     product_title: "Cheese"
-    payment_date: 2018-05-01T16:44:00.000Z
+    payment_date: 2018-05-01T16:44:00.000
     payment_type: "OUTCOMING"
     currency: "EUR"
     amount: 2.5

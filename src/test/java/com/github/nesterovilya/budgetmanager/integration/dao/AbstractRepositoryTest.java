@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.TimeZone;
 
 /**
  * @author Ilya Nesterov
@@ -25,6 +26,10 @@ import java.sql.SQLException;
 @ActiveProfiles("integration-test")
 @DBUnit(cacheConnection = false, batchedStatements = true, allowEmptyFields = true)
 public abstract class AbstractRepositoryTest {
+
+    static {
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
+    }
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
