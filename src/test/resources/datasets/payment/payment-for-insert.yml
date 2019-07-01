@@ -1,0 +1,8 @@
+payment:
+  - category_id: "03a776ca-bfda-47c9-9e9c-99b0ad34152d"
+    correlation_id: "7b681bfe-8c8b-45be-9919-86c28004ede1"
+    product_title: "Meet"
+    payment_date: 2018-05-05T08:25:00.000+00:00
+    payment_type: "OUTCOMING"
+    currency: "EUR"
+    amount: 5.00

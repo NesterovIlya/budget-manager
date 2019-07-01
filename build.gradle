@@ -38,7 +38,7 @@ dependencies {
     implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.3')
     implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.3')
     implementation('org.liquibase:liquibase-core:3.6.3')
-    implementation('org.joda:joda-money:1.0.1')
+    implementation('org.joda:joda-money:0.90')
     implementation('org.jadira.usertype:usertype.core:6.0.1.GA')
 
 
