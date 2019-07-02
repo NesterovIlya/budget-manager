@@ -69,13 +69,13 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
     @Test
     @Commit
     @DataSet(value = {
+            "datasets/payment/payments-for-select.yml",
             "datasets/category/categories-for-select.yml"
     })
     @ExpectedDataSet(value = {
             "datasets/payment/payment-for-insert.yml"
-    })
+    }, orderBy = "amount", ignoreCols = "id"/* ignoreCols = "id" - it is temporary decision */)
     public void test_insertPayment() {
-
 
         Payment payment = new Payment();
         payment.setCategory(categoryRepository.getOne(UUID.fromString("03a776ca-bfda-47c9-9e9c-99b0ad34152d")));
@@ -86,5 +86,43 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
         payment.setAmount(Money.of(CurrencyUnit.EUR, 5.00));
 
         paymentRepository.save(payment);
+    }
+
+    @Test
+    @Commit
+    @DataSet(value = {
+            "datasets/category/categories-for-select.yml",
+            "datasets/payment/payments-for-select.yml"
+    })
+    @ExpectedDataSet(value = {
+            "datasets/payment/payment-for-update.yml"
+    })
+    public void test_updatePayment() {
+
+        Payment foundPayment = paymentRepository.getOne(UUID.fromString("7d8b705a-4b2b-4e18-883d-f5207eac7e5f"));
+
+        foundPayment.setCategory(categoryRepository.getOne(UUID.fromString("ffc7876c-7b0f-4f0d-8d1f-7642c58fc99a")));
+        foundPayment.setCorrelationId(UUID.fromString("871a4228-dd83-4d51-9b44-6400d9ba6263"));
+        foundPayment.setProductTitle("Kefir");
+        foundPayment.setPaymentDate(ZonedDateTime.parse("2018-05-05T12:45:00.000+03:00"));
+        foundPayment.setPaymentType(PaymentType.OUTCOMING);
+        foundPayment.setAmount(Money.of(CurrencyUnit.EUR, 4.80));
+
+        paymentRepository.save(foundPayment);
+    }
+
+    @Test
+    @Commit
+    @DataSet(value = {
+            "datasets/category/categories-for-select.yml",
+            "datasets/payment/payments-for-select.yml"
+    })
+    @ExpectedDataSet(value = {
+            "datasets/payment/payment-for-delete.yml"
+    })
+    public void test_deletePayment() {
+
+        Payment foundPayment = paymentRepository.getOne(UUID.fromString("e5136075-99c3-4cdf-9c69-7d3702957a8e"));
+        paymentRepository.delete(foundPayment);
     }
 }

@@ -1,0 +1,17 @@
+payment:
+  - id: "e5136075-99c3-4cdf-9c69-7d3702957a8e"
+    category_id: "03a776ca-bfda-47c9-9e9c-99b0ad34152d"
+    correlation_id: "facfbb72-9f7b-4847-abf8-d045f7ec34e8"
+    product_title: "Cheese"
+    payment_date: 2018-05-01T16:44:00.000
+    payment_type: "OUTCOMING"
+    currency: "EUR"
+    amount: 2.5
+  - id: "7d8b705a-4b2b-4e18-883d-f5207eac7e5f"
+    category_id: "ffc7876c-7b0f-4f0d-8d1f-7642c58fc99a"
+    correlation_id: "871a4228-dd83-4d51-9b44-6400d9ba6263"
+    product_title: "Kefir"
+    payment_date: 2018-05-05T09:45:00.000
+    payment_type: "OUTCOMING"
+    currency: "EUR"
+    amount: 4.80

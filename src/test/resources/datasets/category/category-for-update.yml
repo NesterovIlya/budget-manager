@@ -1,8 +1,4 @@
 category:
-  - id: "regex:\\[a-z0-9\\-]{36}"
-    parent_id: "03a776ca-bfda-47c9-9e9c-99b0ad34152d"
-    title: "Flour products"
-    description: "Common category for all types of flour products"
   - id: "03a776ca-bfda-47c9-9e9c-99b0ad34152d"
     parent_id: null
     title: "Products"
@@ -12,6 +8,6 @@ category:
     title: "Dairy products"
     description: "Category for dairy products"
   - id: "0ba961a5-664c-4785-863a-bdfdd1b35086"
-    parent_id: "ffc7876c-7b0f-4f0d-8d1f-7642c58fc99a"
-    title: "Milk"
-    description: "Category for milk"
+    parent_id: "03a776ca-bfda-47c9-9e9c-99b0ad34152d"
+    title: "Flour products"
+    description: "Common category for all types of flour products"
