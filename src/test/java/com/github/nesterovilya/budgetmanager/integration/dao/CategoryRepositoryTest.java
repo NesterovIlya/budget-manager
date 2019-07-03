@@ -4,7 +4,6 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.nesterovilya.budgetmanager.dao.CategoryRepository;
 import com.github.nesterovilya.budgetmanager.model.Category;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,6 +18,7 @@ import static org.hamcrest.Matchers.*;
 
 /**
  * @author Ilya Nesterov
+ * @author Anastasya Nesterova
  */
 
 public class CategoryRepositoryTest extends AbstractRepositoryTest {
@@ -34,7 +34,7 @@ public class CategoryRepositoryTest extends AbstractRepositoryTest {
         List<Category> foundCategories = categoryRepository.findAll();
 
         assertThat(foundCategories, not(emptyCollectionOf(Category.class)));
-        assertThat(foundCategories, hasSize(3));
+        assertThat(foundCategories, hasSize(2));
     }
 
     @Test
@@ -87,10 +87,12 @@ public class CategoryRepositoryTest extends AbstractRepositoryTest {
     @Test
     @Commit
     @DataSet(value = {
-            "datasets/category/categories-for-select.yml"
+            "datasets/category/categories-for-select.yml",
+            "datasets/category/category-for-select.yml"
     })
     @ExpectedDataSet(value = {
-            "datasets/category/category-for-update.yml"
+            "datasets/category/category-for-update.yml",
+            "datasets/category/categories-for-select.yml"
     }, orderBy = "title")
     public void test_updateCategory() {
 
@@ -106,9 +108,11 @@ public class CategoryRepositoryTest extends AbstractRepositoryTest {
     @Test
     @Commit
     @DataSet(value = {
-            "datasets/category/categories-for-select.yml"
+            "datasets/category/categories-for-select.yml",
+            "datasets/category/category-for-select.yml"
     })
     @ExpectedDataSet(value = {
+            "datasets/category/categories-for-select.yml",
             "datasets/category/category-for-delete-success.yml"
     }, orderBy = "title")
     public void test_deleteSuccessCategory() {
@@ -125,7 +129,7 @@ public class CategoryRepositoryTest extends AbstractRepositoryTest {
     })
     public void test_deleteExceptionCategory() {
 
-        Category foundCategory = categoryRepository.getOne(UUID.fromString("ffc7876c-7b0f-4f0d-8d1f-7642c58fc99a"));
+        Category foundCategory = categoryRepository.getOne(UUID.fromString("03a776ca-bfda-47c9-9e9c-99b0ad34152d"));
 
         categoryRepository.delete(foundCategory);
         categoryRepository.flush();

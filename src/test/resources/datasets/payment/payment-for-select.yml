@@ -1,9 +1,9 @@
 payment:
-  - id: "e5136075-99c3-4cdf-9c69-7d3702957a8e"
+  - id: "7d8b705a-4b2b-4e18-883d-f5207eac7e5f"
     category_id: "03a776ca-bfda-47c9-9e9c-99b0ad34152d"
     correlation_id: "facfbb72-9f7b-4847-abf8-d045f7ec34e8"
-    product_title: "Cheese"
+    product_title: "Milk"
     payment_date: 2018-05-01T16:44:00.000
     payment_type: "OUTCOMING"
     currency: "EUR"
-    amount: 2.5
+    amount: 1.20

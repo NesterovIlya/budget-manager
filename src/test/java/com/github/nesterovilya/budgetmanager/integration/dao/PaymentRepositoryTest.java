@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.*;
 
 /**
  * @author Ilya Nesterov
+ * @author Anastasya Nesterova
  */
 public class PaymentRepositoryTest extends AbstractRepositoryTest {
 
@@ -42,7 +43,7 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
         List<Payment> foundPayments = paymentRepository.findAll();
 
         assertThat(foundPayments, not(emptyCollectionOf(Payment.class)));
-        assertThat(foundPayments, hasSize(2));
+        assertThat(foundPayments, hasSize(1));
     }
 
     @Test
@@ -52,17 +53,17 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
     })
     public void test_getPayment() {
 
-        Payment foundPayment = paymentRepository.getOne(UUID.fromString("7d8b705a-4b2b-4e18-883d-f5207eac7e5f"));
+        Payment foundPayment = paymentRepository.getOne(UUID.fromString("e5136075-99c3-4cdf-9c69-7d3702957a8e"));
 
-        assertThat(foundPayment.getId(), is(UUID.fromString("7d8b705a-4b2b-4e18-883d-f5207eac7e5f")));
+        assertThat(foundPayment.getId(), is(UUID.fromString("e5136075-99c3-4cdf-9c69-7d3702957a8e")));
         assertThat(foundPayment.getCategory(), is(notNullValue(Category.class)));
         assertThat(foundPayment.getCategory().getId(), is(UUID.fromString("03a776ca-bfda-47c9-9e9c-99b0ad34152d")));
         assertThat(foundPayment.getCorrelationId(), is(UUID.fromString("facfbb72-9f7b-4847-abf8-d045f7ec34e8")));
-        assertThat(foundPayment.getProductTitle(), is("Milk"));
+        assertThat(foundPayment.getProductTitle(), is("Cheese"));
         assertThat(foundPayment.getPaymentDate().withZoneSameInstant(ZoneOffset.UTC),
                 is(ZonedDateTime.parse("2018-05-01T16:44:00.000+00:00")));
         assertThat(foundPayment.getPaymentType(), is(PaymentType.OUTCOMING));
-        assertThat(foundPayment.getAmount(), is(Money.of(CurrencyUnit.EUR, 1.20)));
+        assertThat(foundPayment.getAmount(), is(Money.of(CurrencyUnit.EUR, 2.5)));
     }
 
     @Test
@@ -72,7 +73,7 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
     }, cleanBefore = true)
     @ExpectedDataSet(value = {
             "datasets/payment/payment-for-insert.yml"
-    }, orderBy = "amount", ignoreCols = "id"/* ignoreCols = "id" - it is temporary decision */)
+    }, orderBy = "amount", ignoreCols = "id"/* ignoreCols = "id" - it is temporary solution */)
     public void test_insertPayment() {
 
         Payment payment = new Payment();
@@ -90,7 +91,7 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
     @Commit
     @DataSet(value = {
             "datasets/category/categories-for-select.yml",
-            "datasets/payment/payments-for-select.yml"
+            "datasets/payment/payment-for-select.yml"
     })
     @ExpectedDataSet(value = {
             "datasets/payment/payment-for-update.yml"
@@ -113,14 +114,14 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
     @Commit
     @DataSet(value = {
             "datasets/category/categories-for-select.yml",
-            "datasets/payment/payments-for-select.yml"
+            "datasets/payment/payment-for-select.yml"
     })
     @ExpectedDataSet(value = {
             "datasets/payment/payment-for-delete.yml"
     })
     public void test_deletePayment() {
 
-        Payment foundPayment = paymentRepository.getOne(UUID.fromString("e5136075-99c3-4cdf-9c69-7d3702957a8e"));
+        Payment foundPayment = paymentRepository.getOne(UUID.fromString("7d8b705a-4b2b-4e18-883d-f5207eac7e5f"));
         paymentRepository.delete(foundPayment);
     }
 }
