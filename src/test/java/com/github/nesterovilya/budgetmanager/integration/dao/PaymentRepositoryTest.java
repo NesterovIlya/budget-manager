@@ -59,9 +59,8 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
         assertThat(foundPayment.getCategory().getId(), is(UUID.fromString("03a776ca-bfda-47c9-9e9c-99b0ad34152d")));
         assertThat(foundPayment.getCorrelationId(), is(UUID.fromString("facfbb72-9f7b-4847-abf8-d045f7ec34e8")));
         assertThat(foundPayment.getProductTitle(), is("Milk"));
-        /*assertThat(foundPayment.getPaymentDate(), is(ZonedDateTime.parse("2018-05-01T19:44:00.000+03:00")));*/
         assertThat(foundPayment.getPaymentDate().withZoneSameInstant(ZoneOffset.UTC),
-                is(ZonedDateTime.parse("2018-05-01T19:44:00.000+03:00").withZoneSameInstant(ZoneOffset.UTC)));
+                is(ZonedDateTime.parse("2018-05-01T16:44:00.000+00:00")));
         assertThat(foundPayment.getPaymentType(), is(PaymentType.OUTCOMING));
         assertThat(foundPayment.getAmount(), is(Money.of(CurrencyUnit.EUR, 1.20)));
     }
@@ -69,9 +68,8 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
     @Test
     @Commit
     @DataSet(value = {
-            "datasets/payment/payments-for-select.yml",
             "datasets/category/categories-for-select.yml"
-    })
+    }, cleanBefore = true)
     @ExpectedDataSet(value = {
             "datasets/payment/payment-for-insert.yml"
     }, orderBy = "amount", ignoreCols = "id"/* ignoreCols = "id" - it is temporary decision */)
@@ -81,7 +79,7 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
         payment.setCategory(categoryRepository.getOne(UUID.fromString("03a776ca-bfda-47c9-9e9c-99b0ad34152d")));
         payment.setCorrelationId(UUID.fromString("7b681bfe-8c8b-45be-9919-86c28004ede1"));
         payment.setProductTitle("Meet");
-        payment.setPaymentDate(ZonedDateTime.parse("2018-05-05T11:25:00.000+03:00"));
+        payment.setPaymentDate(ZonedDateTime.parse("2018-05-05T08:25:00.000+00:00"));
         payment.setPaymentType(PaymentType.OUTCOMING);
         payment.setAmount(Money.of(CurrencyUnit.EUR, 5.00));
 
@@ -104,7 +102,7 @@ public class PaymentRepositoryTest extends AbstractRepositoryTest {
         foundPayment.setCategory(categoryRepository.getOne(UUID.fromString("ffc7876c-7b0f-4f0d-8d1f-7642c58fc99a")));
         foundPayment.setCorrelationId(UUID.fromString("871a4228-dd83-4d51-9b44-6400d9ba6263"));
         foundPayment.setProductTitle("Kefir");
-        foundPayment.setPaymentDate(ZonedDateTime.parse("2018-05-05T12:45:00.000+03:00"));
+        foundPayment.setPaymentDate(ZonedDateTime.parse("2018-05-05T09:45:00.000+00:00"));
         foundPayment.setPaymentType(PaymentType.OUTCOMING);
         foundPayment.setAmount(Money.of(CurrencyUnit.EUR, 4.80));
 

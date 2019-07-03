@@ -4,9 +4,12 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.nesterovilya.budgetmanager.dao.CategoryRepository;
 import com.github.nesterovilya.budgetmanager.model.Category;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 import java.util.UUID;
@@ -69,7 +72,8 @@ public class CategoryRepositoryTest extends AbstractRepositoryTest {
             "datasets/category/categories-for-select.yml"
     })
     @ExpectedDataSet(value = {
-            "datasets/category/child-category-for-insert.yml"
+            "datasets/category/child-category-for-insert.yml",
+            "datasets/category/categories-for-select.yml"
     }, orderBy = "title", ignoreCols = "id")
     public void test_insertChildCategory() {
         Category category = new Category();
@@ -114,16 +118,17 @@ public class CategoryRepositoryTest extends AbstractRepositoryTest {
         categoryRepository.delete(foundCategory);
     }
 
-    /*@Test
-    @Commit
+    @Test(expected = DataIntegrityViolationException.class)
+    @Rollback
     @DataSet(value = {
             "datasets/category/categories-for-select.yml"
     })
-    @ExceptionHandler()
     public void test_deleteExceptionCategory() {
 
         Category foundCategory = categoryRepository.getOne(UUID.fromString("ffc7876c-7b0f-4f0d-8d1f-7642c58fc99a"));
 
         categoryRepository.delete(foundCategory);
-    }*/
+        categoryRepository.flush();
+
+    }
 }

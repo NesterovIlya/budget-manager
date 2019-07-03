@@ -22,7 +22,7 @@
             <column name="product_title" type="varchar(200)">
                 <constraints nullable="false"/>
             </column>
-            <column name="payment_date" type="timestamp(6)">
+            <column name="payment_date" type="${timestamp_type}">
                 <constraints nullable="false"/>
             </column>
             <column name="payment_type" type="varchar(9)">

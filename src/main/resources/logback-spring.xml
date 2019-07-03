@@ -27,7 +27,7 @@
         </root>
     </springProfile>
 
-    <springProfile name="development,system-test,integration-test,unit-test">
+    <springProfile name="development,system-test,postgresql-integration-test,integration-test,unit-test">
         <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <Append>true</Append>
             <File>logs/budget-manager.log</File>

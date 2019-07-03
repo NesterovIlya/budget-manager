@@ -50,7 +50,6 @@ dependencies {
     }
     testCompile("org.dbunit:dbunit:2.6.0")
     testCompile("com.github.database-rider:rider-core:1.7.2")
-    /*testRuntime("com.github.dbunit-rules:core:0.15.1")*/
     testRuntime("org.apache.tomcat:tomcat-jdbc:${property('tomcat.version')}")
     testRuntime("org.apache.tomcat:tomcat-dbcp:${property('tomcat.version')}")
 
@@ -71,6 +70,18 @@ task classpathJar(type: Jar) {
             attributes "Class-Path": classpath.collect {f -> f.toURI().toString()}.join(" ")
         }
     }
+}
+
+test {
+    exclude 'com/github/nesterovilya/budgetmanager/integration/dao/postgresql/**'
+}
+
+task testDaoPostgresql(type: Test) {
+    systemProperties = System.properties
+    include 'com/github/nesterovilya/budgetmanager/integration/dao/postgresql/**'
+    jvmArgs "-Dspring.datasource.hikari.jdbc-url=$postgresqlUrl",
+            "-Dspring.datasource.hikari.username=$postgresqlUsername",
+            "-Dspring.datasource.hikari.password=$postgresqlPassword"
 }
 
 bootJar {

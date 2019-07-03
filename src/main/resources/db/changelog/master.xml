@@ -8,16 +8,20 @@
 
     <property name="dbms" value="h2" context="integration-test"/>
     <property name="dbms" value="h2" context="system-test"/>
+    <property name="dbms" value="postgresql" context="postgresql-integration-test"/>
     <property name="dbms" value="postgresql" context="development"/>
     <property name="dbms" value="postgresql" context="production"/>
 
     <property name="schema" value="public" context="integration-test"/>
+    <property name="schema" value="budget-manager-test" context="postgresql-integration-test"/>
     <property name="schema" value="public" context="system-test"/>
 
-    <property name="schema" value="budget_manager_dev" context="development"/>
-    <property name="schema" value="budget_manager" context="production"/>
+    <property name="schema" value="budget-manager-dev" context="development"/>
+    <property name="schema" value="budget-manager" context="production"/>
 
     <property name="blob_type" value="bytea" dbms="postgresql"/>
+    <property name="timestamp_type" value="timestamp(6) with timezone" dbms="postgresql"/>
+    <property name="timestamp_type" value="timestamp(6)" dbms="h2"/>
 
 
     <preConditions>

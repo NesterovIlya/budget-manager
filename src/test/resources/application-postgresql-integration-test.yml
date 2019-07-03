@@ -1,0 +1,18 @@
+spring:
+  liquibase:
+    change-log: classpath:/db/changelog/master.xml
+    contexts: postgresql-integration-test
+    default-schema: budget-manager-test
+  jpa:
+    properties:
+      format_sql: true
+      hibernate:
+        format_sql: true
+        generate_statistics: true
+        dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    hikari:
+      driver-class-name: org.postgresql.Driver
+      #jdbc-url: jdbc:postgresql://localhost:5432/budget-manager?currentSchema=budget-manager-test
+      #username: postgres
+      #password: 123456
