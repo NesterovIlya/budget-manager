@@ -34,7 +34,8 @@ repositories {
 ext['tomcat.version'] = '9.0.14'
 
 dependencies {
-    implementation('org.projectlombok:lombok:1.18.4')
+    compileOnly('org.projectlombok:lombok:1.18.4')
+    annotationProcessor('org.projectlombok:lombok:1.18.4')
     implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.3')
     implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.3')
     implementation('org.liquibase:liquibase-core:3.6.3')
@@ -50,6 +51,8 @@ dependencies {
     }
     testCompile("org.dbunit:dbunit:2.6.0")
     testCompile("com.github.database-rider:rider-core:1.7.2")
+    testCompileOnly('org.projectlombok:lombok:1.18.4')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.4')
     testRuntime("org.apache.tomcat:tomcat-jdbc:${property('tomcat.version')}")
     testRuntime("org.apache.tomcat:tomcat-dbcp:${property('tomcat.version')}")
 
@@ -77,7 +80,12 @@ test {
 }
 
 task testDaoPostgresql(type: Test) {
-    systemProperties = System.properties
+    // systemProperties = System.properties
+    /*Error: Could not create the Java Virtual Machine.
+    -Djava.endorsed.dirs=C:\Users\Anastasia\AppData\Local\JetBrains\Toolbox\apps\IDEA-U\ch-0\191.7479.19\jre64\lib\endorsed is not supported. Endorsed standards and standalone APIs
+    Error: A fatal exception has occurred. Program will exit.
+    in modular form will be supported via the concept of upgradeable modules.
+    */
     include 'com/github/nesterovilya/budgetmanager/integration/dao/postgresql/**'
     jvmArgs "-Dspring.datasource.hikari.jdbc-url=$postgresqlUrl",
             "-Dspring.datasource.hikari.username=$postgresqlUsername",
